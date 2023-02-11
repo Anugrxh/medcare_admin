@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:medcare_admin/screens/dashbord.dart';
+import 'package:medcare_admin/screens/desk_screen.dart';
+import 'package:medcare_admin/screens/doctor_screen.dart';
 import 'package:medcare_admin/screens/home.dart';
 import 'package:medcare_admin/screens/login.dart';
 

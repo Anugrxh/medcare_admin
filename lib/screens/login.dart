@@ -81,10 +81,11 @@ class Login extends StatelessWidget {
                       height: 40,
                     ),
                     CustomButton(
-                        label: "Login",
-                        buttonColor: Colors.white,
-                        elevation: 5,
-                        onPressed: (() {}))
+                      label: "Login",
+                      buttonColor: Colors.white,
+                      elevation: 5,
+                      onPressed: (() {}),
+                    )
                   ],
                 ),
               ),

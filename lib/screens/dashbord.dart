@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:medcare_admin/widgets/dashcard.dart';
 
+import '../widgets/custom_search.dart';
+
 class DashboardScreen extends StatefulWidget {
   const DashboardScreen({super.key});
 
@@ -19,21 +21,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
             const SizedBox(
               height: 20,
             ),
-            Material(
-              elevation: 5,
-              borderRadius: BorderRadius.circular(20),
-              child: TextFormField(
-                obscureText: false,
-                decoration: InputDecoration(
-                  contentPadding: EdgeInsets.symmetric(
-                    horizontal: 10,
-                    vertical: 10,
-                  ),
-                  border: InputBorder.none,
-                  labelText: 'Search',
-                ),
-              ),
-            ),
+            CustomSearch(),
             const SizedBox(
               height: 50,
             ),

@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:medcare_admin/screens/appoinment_screen.dart';
 import 'package:medcare_admin/screens/dashbord.dart';
+import 'package:medcare_admin/screens/desk_screen.dart';
 import 'package:medcare_admin/screens/doctor_screen.dart';
 import 'package:medcare_admin/widgets/dashcard.dart';
 import 'package:medcare_admin/widgets/drawer_button.dart';
+import 'package:medcare_admin/widgets/custom_button.dart';
 
 class Home extends StatefulWidget {
   const Home({super.key});
@@ -17,7 +20,7 @@ class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
   @override
   void initState() {
     _tabController = TabController(
-      length: 6,
+      length: 4,
       vsync: this,
     );
     super.initState();
@@ -33,9 +36,11 @@ class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
       ),
       body: TabBarView(
         controller: _tabController,
-        children: const [
-          DashboardScreen(),
+        children: [
+          const DashboardScreen(),
           DoctorScreen(),
+          DeskScreen(),
+          AppointmentScreen(),
         ],
       ),
       drawer: Drawer(
@@ -86,16 +91,24 @@ class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
               ),
               DrawerButton(
                 label: 'DESK',
-                onPressed: () {},
-                isSelected: false,
+                onPressed: () {
+                  _tabController!.animateTo(2);
+                  setState(() {});
+                  Navigator.pop(context);
+                },
+                isSelected: _tabController!.index == 2,
               ),
               const SizedBox(
                 height: 20,
               ),
               DrawerButton(
                 label: 'APPOINTMENTS',
-                onPressed: () {},
-                isSelected: false,
+                onPressed: () {
+                  _tabController!.animateTo(3);
+                  setState(() {});
+                  Navigator.pop(context);
+                },
+                isSelected: _tabController!.index == 3,
               ),
               const SizedBox(
                 height: 20,
