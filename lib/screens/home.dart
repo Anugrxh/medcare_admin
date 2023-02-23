@@ -3,6 +3,7 @@ import 'package:medcare_admin/screens/appoinment_screen.dart';
 import 'package:medcare_admin/screens/dashbord.dart';
 import 'package:medcare_admin/screens/desk_screen.dart';
 import 'package:medcare_admin/screens/doctor_screen.dart';
+import 'package:medcare_admin/screens/login.dart';
 import 'package:medcare_admin/widgets/dashcard.dart';
 import 'package:medcare_admin/widgets/drawer_button.dart';
 import 'package:medcare_admin/widgets/custom_button.dart';
@@ -115,7 +116,79 @@ class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
               ),
               DrawerButton(
                 label: 'LOGOUT',
-                onPressed: () {},
+                onPressed: () {
+                  showDialog(
+                    context: context,
+                    builder: (_) => Dialog(
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(15),
+                      ),
+                      child: Padding(
+                        padding: const EdgeInsets.symmetric(
+                          horizontal: 15,
+                          vertical: 10,
+                        ),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            Text(
+                              'Logout',
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .labelLarge!
+                                  .copyWith(
+                                    color: Colors.black,
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                            ),
+                            const SizedBox(
+                              height: 3,
+                            ),
+                            Text(
+                              'Are you sure you want to logout ?',
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .labelMedium!
+                                  .copyWith(
+                                    color: Colors.black,
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                            ),
+                            const SizedBox(
+                              height: 15,
+                            ),
+                            Row(
+                              mainAxisSize: MainAxisSize.min,
+                              children: [
+                                CustomButton(
+                                  label: 'Cancel',
+                                  onPressed: () {
+                                    Navigator.pop(context);
+                                  },
+                                ),
+                                const SizedBox(
+                                  width: 20,
+                                ),
+                                CustomButton(
+                                  label: 'Logout',
+                                  onPressed: () {
+                                    Navigator.pushReplacement(
+                                        context,
+                                        MaterialPageRoute(
+                                            builder: (context) => Login()));
+                                  },
+                                  buttonColor: Colors.blue,
+                                  labelColor: Colors.white,
+                                ),
+                              ],
+                            )
+                          ],
+                        ),
+                      ),
+                    ),
+                  );
+                },
                 isSelected: false,
               ),
             ],

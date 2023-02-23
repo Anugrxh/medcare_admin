@@ -6,6 +6,7 @@ class CustomButton extends StatelessWidget {
   final IconData? icon;
   final Color? buttonColor, iconColor, labelColor;
   final double elevation;
+  final bool isLoading;
   const CustomButton({
     Key? key,
     required this.label,
@@ -15,6 +16,7 @@ class CustomButton extends StatelessWidget {
     this.iconColor,
     this.labelColor,
     this.elevation = 0,
+    this.isLoading = false,
   }) : super(key: key);
 
   @override
@@ -35,25 +37,30 @@ class CustomButton extends StatelessWidget {
           ),
           child: Row(
             mainAxisSize: MainAxisSize.min,
-            children: [
-              Text(
-                label,
-                style: Theme.of(context).textTheme.button?.copyWith(
-                      fontWeight: FontWeight.w600,
-                      color: labelColor,
+            mainAxisAlignment: icon != null
+                ? MainAxisAlignment.spaceBetween
+                : MainAxisAlignment.center,
+            children: isLoading
+                ? [const CircularProgressIndicator()]
+                : [
+                    Text(
+                      label,
+                      style: Theme.of(context).textTheme.button?.copyWith(
+                            fontWeight: FontWeight.w600,
+                            color: labelColor,
+                          ),
                     ),
-              ),
-              SizedBox(
-                width: icon != null ? 5 : 0,
-              ),
-              icon != null
-                  ? Icon(
-                      icon!,
-                      color: iconColor,
-                      size: 20,
-                    )
-                  : const SizedBox()
-            ],
+                    SizedBox(
+                      width: icon != null ? 5 : 0,
+                    ),
+                    icon != null
+                        ? Icon(
+                            icon!,
+                            color: iconColor,
+                            size: 20,
+                          )
+                        : const SizedBox()
+                  ],
           ),
         ),
       ),

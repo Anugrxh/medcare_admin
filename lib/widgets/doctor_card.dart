@@ -95,7 +95,74 @@ class DoctorCard extends StatelessWidget {
                     ),
                   ),
                   CustomButton(
-                    onPressed: () {},
+                    onPressed: () {
+                      showDialog(
+                        context: context,
+                        builder: (_) => Dialog(
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(15),
+                          ),
+                          child: Padding(
+                            padding: const EdgeInsets.symmetric(
+                              horizontal: 15,
+                              vertical: 10,
+                            ),
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              mainAxisSize: MainAxisSize.min,
+                              children: [
+                                Text(
+                                  'Delete',
+                                  style: Theme.of(context)
+                                      .textTheme
+                                      .labelLarge!
+                                      .copyWith(
+                                        color: Colors.black,
+                                        fontWeight: FontWeight.bold,
+                                      ),
+                                ),
+                                const SizedBox(
+                                  height: 3,
+                                ),
+                                Text(
+                                  'Are you sure you want to Delete ?',
+                                  style: Theme.of(context)
+                                      .textTheme
+                                      .labelMedium!
+                                      .copyWith(
+                                        color: Colors.black,
+                                        fontWeight: FontWeight.bold,
+                                      ),
+                                ),
+                                const SizedBox(
+                                  height: 15,
+                                ),
+                                Row(
+                                  mainAxisSize: MainAxisSize.min,
+                                  children: [
+                                    CustomButton(
+                                      label: 'Cancel',
+                                      onPressed: () {
+                                        Navigator.pop(context);
+                                      },
+                                    ),
+                                    const SizedBox(
+                                      width: 20,
+                                    ),
+                                    CustomButton(
+                                      label: 'Delete',
+                                      onPressed: () {},
+                                      buttonColor: Colors.blue,
+                                      labelColor: Colors.white,
+                                    ),
+                                  ],
+                                )
+                              ],
+                            ),
+                          ),
+                        ),
+                      );
+                    },
                     label: 'Delete',
                     elevation: 6,
                   ),
@@ -104,6 +171,7 @@ class DoctorCard extends StatelessWidget {
                   ),
                   CustomButton(
                     label: "Edit",
+                    buttonColor: Colors.blue,
                     elevation: 6,
                     onPressed: () {
                       showDialog(

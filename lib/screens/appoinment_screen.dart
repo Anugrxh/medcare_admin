@@ -21,6 +21,7 @@ class _AppointmentScreenState extends State<AppointmentScreen> {
         child: SizedBox(
           width: 1000,
           child: ListView(
+            padding: EdgeInsets.symmetric(horizontal: 10),
             children: [
               Row(
                 children: [

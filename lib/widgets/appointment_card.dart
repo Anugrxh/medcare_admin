@@ -63,6 +63,7 @@ class AppoinmentCard extends StatelessWidget {
                 children: [
                   CustomButton(
                     label: "View Patient List",
+                    buttonColor: Colors.blue,
                     elevation: 6,
                     onPressed: () {
                       showDialog(
