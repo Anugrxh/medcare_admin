@@ -21,6 +21,21 @@ class _LoginState extends State<Login> {
   final TextEditingController _passwordController = TextEditingController();
 
   @override
+  void initState() {
+    super.initState();
+
+    Future.delayed(const Duration(milliseconds: 100), () {
+      if (Supabase.instance.client.auth.currentUser != null) {
+        Navigator.of(context).push(
+          MaterialPageRoute(
+            builder: (context) => const Home(),
+          ),
+        );
+      }
+    });
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,

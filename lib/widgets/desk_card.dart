@@ -50,7 +50,7 @@ class DeskCard extends StatelessWidget {
               Row(
                 children: const [
                   Text(
-                    'Time:',
+                    'phone:',
                     style: TextStyle(color: Colors.black),
                   ),
                   SizedBox(
@@ -205,7 +205,7 @@ class DeskCard extends StatelessWidget {
                                   Row(
                                     children: [
                                       const Text(
-                                        'Time: ',
+                                        'phone: ',
                                         style: TextStyle(color: Colors.black),
                                       ),
                                       SizedBox(

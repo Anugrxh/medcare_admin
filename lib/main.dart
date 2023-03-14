@@ -5,6 +5,7 @@ import 'package:medcare_admin/screens/doctor_screen.dart';
 import 'package:medcare_admin/screens/home.dart';
 import 'package:medcare_admin/screens/login.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
+import 'package:loading_animation_widget/loading_animation_widget.dart';
 
 void main() async {
   await Supabase.initialize(

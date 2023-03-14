@@ -97,7 +97,7 @@ class _DeskScreenState extends State<DeskScreen> {
                                   Row(
                                     children: [
                                       const Text(
-                                        'Time: ',
+                                        'phone: ',
                                         style: TextStyle(color: Colors.black),
                                       ),
                                       SizedBox(
