@@ -6,5 +6,5 @@ abstract class DepartmentEvent {}
 class GetAllDEpartmentEvent extends DepartmentEvent {
   final int? departmentId;
 
-  GetAllDEpartmentEvent(this.departmentId);
+  GetAllDEpartmentEvent({required this.departmentId});
 }
