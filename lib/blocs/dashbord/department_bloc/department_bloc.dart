@@ -14,6 +14,7 @@ class DepartmentBloc extends Bloc<DepartmentEvent, DepartmentState> {
       try {
         SupabaseClient supabaseClient = Supabase.instance.client;
         SupabaseQueryBuilder queryTable = supabaseClient.from('departments');
+        List<Map<String, dynamic>> departments = await queryTable.select('*');
       } catch (e, s) {
         log("$e\n$s");
         emit(DepartmentFailureState());

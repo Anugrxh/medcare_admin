@@ -15,6 +15,7 @@ class DoctorSelectionBloc
       try {
         SupabaseClient supabaseClient = Supabase.instance.client;
         SupabaseQueryBuilder queryTable = supabaseClient.from('doctors');
+        List<Map<String, dynamic>> doctors = await queryTable.select('*');
       } catch (e, s) {
         log("$e\n$s");
         emit(DoctorSelectionfailureState());
