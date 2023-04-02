@@ -22,23 +22,49 @@ class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
   void initState() {
     _tabController = TabController(
       length: 4,
+      initialIndex: 1,
       vsync: this,
     );
     super.initState();
+  }
+
+  String getTitle(int index) {
+    switch (index) {
+      case 0:
+        return 'Dashboard';
+      case 1:
+        return 'Doctors';
+      case 2:
+        return 'Desk';
+      case 3:
+        return 'Appointments';
+
+      default:
+        return 'Dashboard';
+    }
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        title: Text(
+          getTitle(_tabController?.index ?? 0),
+          style: Theme.of(context).textTheme.titleMedium?.copyWith(
+                color: Colors.black,
+                fontWeight: FontWeight.bold,
+              ),
+        ),
+        centerTitle: true,
         backgroundColor: Colors.white,
-        elevation: 0,
+        elevation: 1,
         iconTheme: const IconThemeData(color: Colors.blue),
       ),
       body: TabBarView(
         controller: _tabController,
-        children: [
-          const DashboardScreen(),
+        physics: const NeverScrollableScrollPhysics(),
+        children: const [
+          DashboardScreen(),
           DoctorScreen(),
           DeskScreen(),
           AppointmentScreen(),
@@ -58,7 +84,7 @@ class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
               ),
               Text(
                 'MENU',
-                style: Theme.of(context).textTheme.headline5!.copyWith(
+                style: Theme.of(context).textTheme.titleMedium!.copyWith(
                       color: Colors.black,
                       fontWeight: FontWeight.bold,
                     ),
@@ -67,6 +93,7 @@ class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
                 height: 30,
               ),
               DrawerButton(
+                iconData: Icons.dashboard_outlined,
                 label: 'DASHBOARD',
                 onPressed: () {
                   _tabController!.animateTo(0);
@@ -79,6 +106,7 @@ class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
                 height: 20,
               ),
               DrawerButton(
+                iconData: Icons.percent_outlined,
                 label: 'DOCTORS',
                 onPressed: () {
                   _tabController!.animateTo(1);
@@ -91,6 +119,7 @@ class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
                 height: 20,
               ),
               DrawerButton(
+                iconData: Icons.desk_outlined,
                 label: 'DESK',
                 onPressed: () {
                   _tabController!.animateTo(2);
@@ -103,6 +132,7 @@ class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
                 height: 20,
               ),
               DrawerButton(
+                iconData: Icons.receipt_outlined,
                 label: 'APPOINTMENTS',
                 onPressed: () {
                   _tabController!.animateTo(3);
@@ -115,6 +145,7 @@ class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
                 height: 20,
               ),
               DrawerButton(
+                iconData: Icons.logout_outlined,
                 label: 'LOGOUT',
                 onPressed: () {
                   showDialog(

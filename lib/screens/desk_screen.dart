@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/framework.dart';
-import 'package:flutter/src/widgets/placeholder.dart';
 
 import '../widgets/custom_button.dart';
 import '../widgets/custom_search.dart';
@@ -24,7 +22,7 @@ class _DeskScreenState extends State<DeskScreen> {
             children: [
               Row(
                 children: [
-                  Expanded(flex: 10, child: CustomSearch()),
+                  Expanded(flex: 10, child: CustomSearch(onSearch: (value) {})),
                   SizedBox(
                     width: 10,
                   ),

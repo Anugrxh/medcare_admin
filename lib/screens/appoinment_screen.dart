@@ -25,7 +25,7 @@ class _AppointmentScreenState extends State<AppointmentScreen> {
             children: [
               Row(
                 children: [
-                  Expanded(flex: 10, child: CustomSearch()),
+                  Expanded(flex: 10, child: CustomSearch(onSearch: (value) {})),
                   SizedBox(
                     width: 10,
                   ),

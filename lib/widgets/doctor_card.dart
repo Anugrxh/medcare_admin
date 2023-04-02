@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import 'custom_button.dart';
+import 'custom_card.dart';
 
 class DoctorCard extends StatelessWidget {
   const DoctorCard({
@@ -9,330 +9,190 @@ class DoctorCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Material(
-      elevation: 6,
-      shadowColor: Colors.black,
-      borderRadius: BorderRadius.circular(15),
-      color: const Color(0xFFFFFFFF),
+    return CustomCard(
       child: SizedBox(
+        width: 312.5,
         child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 15),
+          padding: const EdgeInsets.symmetric(
+            horizontal: 15,
+            vertical: 10,
+          ),
           child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Row(
-                children: const [
-                  Text(
-                    'Name:',
-                    style: TextStyle(color: Colors.black),
+                children: [
+                  Expanded(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          '#432342',
+                          style:
+                              Theme.of(context).textTheme.bodySmall?.copyWith(
+                                    color: Colors.black45,
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                        ),
+                        const SizedBox(height: 5),
+                        Text(
+                          'Dr.Some Doctor',
+                          style:
+                              Theme.of(context).textTheme.titleMedium?.copyWith(
+                                    color: Colors.black,
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                        ),
+                      ],
+                    ),
                   ),
-                  SizedBox(
+                  const SizedBox(
                     width: 10,
+                  ),
+                  IconButton(
+                    onPressed: () {},
+                    icon: const Icon(
+                      Icons.edit_outlined,
+                      color: Colors.orange,
+                    ),
+                  ),
+                  IconButton(
+                    onPressed: () {},
+                    icon: const Icon(
+                      Icons.delete_forever_outlined,
+                      color: Colors.red,
+                    ),
                   ),
                 ],
               ),
-              const SizedBox(
-                height: 10,
-              ),
-              Row(
-                children: const [
-                  Text(
-                    'Department:',
-                    style: TextStyle(color: Colors.black),
-                  ),
-                  SizedBox(
-                    width: 10,
-                  ),
-                ],
-              ),
-              const SizedBox(
-                height: 10,
-              ),
-              Row(
-                children: const [
-                  Text(
-                    'Time:',
-                    style: TextStyle(color: Colors.black),
-                  ),
-                  SizedBox(
-                    width: 10,
-                  ),
-                ],
-              ),
-              const SizedBox(
-                height: 10,
-              ),
-              Row(
-                children: const [
-                  Text(
-                    'Token:',
-                    style: TextStyle(color: Colors.black),
-                  ),
-                  SizedBox(
-                    width: 10,
-                  ),
-                ],
-              ),
-              const SizedBox(
-                height: 10,
-              ),
-              Row(
-                children: const [
-                  Text(
-                    'Fee:',
-                    style: TextStyle(color: Colors.black),
-                  ),
-                  SizedBox(
-                    width: 10,
-                  ),
-                ],
+              const Divider(
+                height: 15,
+                color: Color.fromARGB(66, 176, 176, 176),
               ),
               Row(
                 children: [
-                  const Expanded(
-                    child: Text(
-                      'Doctor ID:',
-                      style: TextStyle(color: Colors.black),
+                  Expanded(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          'Time From',
+                          style:
+                              Theme.of(context).textTheme.labelMedium?.copyWith(
+                                    color: Colors.black45,
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                        ),
+                        const SizedBox(height: 5),
+                        Text(
+                          '10:20 AM',
+                          style:
+                              Theme.of(context).textTheme.titleSmall?.copyWith(
+                                    color: Colors.black,
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                        ),
+                      ],
                     ),
                   ),
-                  CustomButton(
-                    onPressed: () {
-                      showDialog(
-                        context: context,
-                        builder: (_) => Dialog(
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(15),
-                          ),
-                          child: Padding(
-                            padding: const EdgeInsets.symmetric(
-                              horizontal: 15,
-                              vertical: 10,
-                            ),
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.center,
-                              mainAxisSize: MainAxisSize.min,
-                              children: [
-                                Text(
-                                  'Delete',
-                                  style: Theme.of(context)
-                                      .textTheme
-                                      .labelLarge!
-                                      .copyWith(
-                                        color: Colors.black,
-                                        fontWeight: FontWeight.bold,
-                                      ),
-                                ),
-                                const SizedBox(
-                                  height: 3,
-                                ),
-                                Text(
-                                  'Are you sure you want to Delete ?',
-                                  style: Theme.of(context)
-                                      .textTheme
-                                      .labelMedium!
-                                      .copyWith(
-                                        color: Colors.black,
-                                        fontWeight: FontWeight.bold,
-                                      ),
-                                ),
-                                const SizedBox(
-                                  height: 15,
-                                ),
-                                Row(
-                                  mainAxisSize: MainAxisSize.min,
-                                  children: [
-                                    CustomButton(
-                                      label: 'Cancel',
-                                      onPressed: () {
-                                        Navigator.pop(context);
-                                      },
-                                    ),
-                                    const SizedBox(
-                                      width: 20,
-                                    ),
-                                    CustomButton(
-                                      label: 'Delete',
-                                      onPressed: () {},
-                                      buttonColor: Colors.blue,
-                                      labelColor: Colors.white,
-                                    ),
-                                  ],
-                                )
-                              ],
-                            ),
-                          ),
+                  Expanded(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.end,
+                      children: [
+                        Text(
+                          'Time To',
+                          style:
+                              Theme.of(context).textTheme.labelMedium?.copyWith(
+                                    color: Colors.black45,
+                                    fontWeight: FontWeight.bold,
+                                  ),
                         ),
-                      );
-                    },
-                    label: 'Delete',
-                    elevation: 6,
-                  ),
-                  const SizedBox(
-                    width: 20,
-                  ),
-                  CustomButton(
-                    label: "Edit",
-                    buttonColor: Colors.blue,
-                    elevation: 6,
-                    onPressed: () {
-                      showDialog(
-                        context: context,
-                        builder: (context) => Dialog(
-                          backgroundColor: Colors.white,
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(
-                              20,
-                            ),
-                          ),
-                          child: SizedBox(
-                            width: 600,
-                            child: Padding(
-                              padding: const EdgeInsets.symmetric(
-                                horizontal: 20,
-                                vertical: 20,
-                              ),
-                              child: Column(
-                                mainAxisSize: MainAxisSize.min,
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Row(
-                                    children: [
-                                      const Text(
-                                        'Name: ',
-                                        style: TextStyle(color: Colors.black),
-                                      ),
-                                      SizedBox(
-                                        height: 20,
-                                        width: 100,
-                                        child: TextField(
-                                          decoration: InputDecoration(
-                                              filled: true,
-                                              fillColor: Colors.white),
-                                        ),
-                                      ),
-                                    ],
+                        const SizedBox(height: 5),
+                        Text(
+                          '10:20 PM',
+                          style:
+                              Theme.of(context).textTheme.titleSmall?.copyWith(
+                                    color: Colors.black,
+                                    fontWeight: FontWeight.bold,
                                   ),
-                                  const SizedBox(
-                                    height: 20,
-                                  ),
-                                  Row(
-                                    // ignore: prefer_const_literals_to_create_immutables
-                                    children: [
-                                      const Text(
-                                        'Department: ',
-                                        style: TextStyle(color: Colors.black),
-                                      ),
-                                      const SizedBox(
-                                        height: 20,
-                                        width: 100,
-                                        child: TextField(
-                                          decoration: InputDecoration(
-                                              filled: true,
-                                              fillColor: Colors.white),
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-                                  const SizedBox(
-                                    height: 20,
-                                  ),
-                                  Row(
-                                    children: [
-                                      const Text(
-                                        'Time: ',
-                                        style: TextStyle(color: Colors.black),
-                                      ),
-                                      SizedBox(
-                                        height: 20,
-                                        width: 100,
-                                        child: TextField(
-                                          decoration: InputDecoration(
-                                              filled: true,
-                                              fillColor: Colors.white),
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-                                  const SizedBox(
-                                    height: 20,
-                                  ),
-                                  Row(
-                                    children: [
-                                      const Text(
-                                        'Token: ',
-                                        style: TextStyle(color: Colors.black),
-                                      ),
-                                      SizedBox(
-                                        height: 20,
-                                        width: 100,
-                                        child: TextField(
-                                          decoration: InputDecoration(
-                                              filled: true,
-                                              fillColor: Colors.white),
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-                                  const SizedBox(
-                                    height: 20,
-                                  ),
-                                  Row(
-                                    children: [
-                                      const Text(
-                                        'Fee: ',
-                                        style: TextStyle(color: Colors.black),
-                                      ),
-                                      SizedBox(
-                                        height: 20,
-                                        width: 100,
-                                        child: TextField(
-                                          decoration: InputDecoration(
-                                              filled: true,
-                                              fillColor: Colors.white),
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-                                  const SizedBox(
-                                    height: 20,
-                                  ),
-                                  Row(
-                                    children: [
-                                      const Text(
-                                        'Doctor ID: ',
-                                        style: TextStyle(color: Colors.black),
-                                      ),
-                                      SizedBox(
-                                        height: 20,
-                                        width: 100,
-                                        child: TextField(
-                                          decoration: InputDecoration(
-                                              filled: true,
-                                              fillColor: Colors.white),
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-                                  const SizedBox(
-                                    height: 20,
-                                  ),
-                                  Align(
-                                    alignment: Alignment.bottomRight,
-                                    child: CustomButton(
-                                      elevation: 6,
-                                      onPressed: () {
-                                        Navigator.pop(context);
-                                      },
-                                      label: 'Save',
-                                      buttonColor: const Color(0xFFFFFFFF),
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ),
-                          ),
                         ),
-                      );
-                    },
+                      ],
+                    ),
+                  ),
+                ],
+              ),
+              const Divider(
+                height: 15,
+                color: Color.fromARGB(66, 176, 176, 176),
+              ),
+              Text(
+                'Department',
+                style: Theme.of(context).textTheme.labelMedium?.copyWith(
+                      color: Colors.black45,
+                      fontWeight: FontWeight.bold,
+                    ),
+              ),
+              const SizedBox(height: 5),
+              Text(
+                'Department Name',
+                style: Theme.of(context).textTheme.titleSmall?.copyWith(
+                      color: Colors.black,
+                      fontWeight: FontWeight.bold,
+                    ),
+              ),
+              const Divider(
+                height: 15,
+                color: Color.fromARGB(66, 176, 176, 176),
+              ),
+              Row(
+                children: [
+                  Expanded(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          'Max. Token',
+                          style:
+                              Theme.of(context).textTheme.labelMedium?.copyWith(
+                                    color: Colors.black45,
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                        ),
+                        const SizedBox(height: 5),
+                        Text(
+                          '100',
+                          style:
+                              Theme.of(context).textTheme.titleSmall?.copyWith(
+                                    color: Colors.black,
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                        ),
+                      ],
+                    ),
+                  ),
+                  Expanded(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.end,
+                      children: [
+                        Text(
+                          'Fee',
+                          style:
+                              Theme.of(context).textTheme.labelMedium?.copyWith(
+                                    color: Colors.black45,
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                        ),
+                        const SizedBox(height: 5),
+                        Text(
+                          '350',
+                          style:
+                              Theme.of(context).textTheme.titleSmall?.copyWith(
+                                    color: Colors.black,
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                        ),
+                      ],
+                    ),
                   ),
                 ],
               ),

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:medcare_admin/widgets/custom_card.dart';
 
 class CustomButton extends StatelessWidget {
   final String label;
@@ -21,13 +22,11 @@ class CustomButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Material(
+    return CustomCard(
       color: buttonColor ?? Colors.white,
-      elevation: elevation,
-      borderRadius: BorderRadius.circular(10),
       child: InkWell(
         onTap: onPressed,
-        borderRadius: BorderRadius.circular(10),
+        borderRadius: BorderRadius.circular(5),
         child: Padding(
           padding: EdgeInsets.only(
             left: 20,
