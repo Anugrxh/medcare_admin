@@ -52,6 +52,10 @@ class _CustomSearchState extends State<CustomSearch> {
           ),
           _searchController.text.trim().isNotEmpty
               ? IconButton(
+                  hoverColor: Colors.transparent,
+                  focusColor: Colors.transparent,
+                  splashColor: Colors.transparent,
+                  highlightColor: Colors.transparent,
                   onPressed: () {
                     _lastValue = _searchController.text.trim();
                     widget.onSearch(_lastValue);
@@ -68,6 +72,10 @@ class _CustomSearchState extends State<CustomSearch> {
           ),
           _lastValue.isNotEmpty
               ? IconButton(
+                  hoverColor: Colors.transparent,
+                  focusColor: Colors.transparent,
+                  splashColor: Colors.transparent,
+                  highlightColor: Colors.transparent,
                   onPressed: () {
                     _lastValue = '';
                     _searchController.clear();

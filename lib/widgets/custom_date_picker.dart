@@ -5,9 +5,11 @@ import 'custom_card.dart';
 
 class CustomDatePicker extends StatefulWidget {
   final Function(DateTime) onPick;
+  final DateTime? defaultDate;
   const CustomDatePicker({
     super.key,
     required this.onPick,
+    this.defaultDate,
   });
 
   @override
@@ -23,7 +25,7 @@ class _CustomDatePickerState extends State<CustomDatePicker> {
       onPressed: () async {
         pickedDate = await showDatePicker(
           context: context,
-          initialDate: DateTime.now(),
+          initialDate: widget.defaultDate ?? DateTime.now(),
           firstDate: DateTime.now().subtract(
             const Duration(days: 365 * 100),
           ),
@@ -31,6 +33,7 @@ class _CustomDatePickerState extends State<CustomDatePicker> {
         );
 
         if (pickedDate != null) {
+          widget.onPick(pickedDate!);
           setState(() {});
         }
       },
@@ -45,7 +48,9 @@ class _CustomDatePickerState extends State<CustomDatePicker> {
           child: Text(
             pickedDate != null
                 ? DateFormat('dd/MM/yyyy').format(pickedDate!)
-                : 'Select Date',
+                : widget.defaultDate != null
+                    ? DateFormat('dd/MM/yyyy').format(widget.defaultDate!)
+                    : 'Select Date',
             style: Theme.of(context).textTheme.titleMedium?.copyWith(
                   color: pickedDate != null ? Colors.black54 : Colors.black45,
                   fontWeight:

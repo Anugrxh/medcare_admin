@@ -21,7 +21,7 @@ class CustomActionButton extends StatelessWidget {
       color: color.withOpacity(.1),
       borderRadius: BorderRadius.circular(10),
       child: InkWell(
-        onTap: () {},
+        onTap: onPressed,
         hoverColor: color.withOpacity(.15),
         focusColor: color.withOpacity(.15),
         highlightColor: color.withOpacity(.15),
