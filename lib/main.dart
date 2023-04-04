@@ -1,11 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:medcare_admin/screens/dashbord.dart';
-import 'package:medcare_admin/screens/desk_screen.dart';
-import 'package:medcare_admin/screens/doctor_screen.dart';
 import 'package:medcare_admin/screens/home.dart';
+import 'package:medcare_admin/screens/issued_tokens_screen.dart';
 import 'package:medcare_admin/screens/login.dart';
+import 'package:medcare_admin/screens/patient_details_screen.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
-import 'package:loading_animation_widget/loading_animation_widget.dart';
 
 void main() async {
   await Supabase.initialize(
@@ -34,7 +32,9 @@ class MyApp extends StatelessWidget {
               ),
             ),
       ),
-      home: const Login(),
+      home: const Home(),
     );
   }
 }
+
+// TODO: Add revenue and salary section if required

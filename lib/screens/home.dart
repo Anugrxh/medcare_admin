@@ -1,12 +1,14 @@
 import 'package:flutter/material.dart';
-import 'package:medcare_admin/screens/appoinment_screen.dart';
-import 'package:medcare_admin/screens/dashbord.dart';
-import 'package:medcare_admin/screens/desk_screen.dart';
-import 'package:medcare_admin/screens/doctor_screen.dart';
+import 'package:medcare_admin/screens/home_screen_sections/patients_screen.dart';
+
 import 'package:medcare_admin/screens/login.dart';
-import 'package:medcare_admin/widgets/dashcard.dart';
 import 'package:medcare_admin/widgets/drawer_button.dart';
 import 'package:medcare_admin/widgets/custom_button.dart';
+
+import 'home_screen_sections/appoinment_screen.dart';
+import 'home_screen_sections/dashbord.dart';
+import 'home_screen_sections/desk_screen.dart';
+import 'home_screen_sections/doctor_screen.dart';
 
 class Home extends StatefulWidget {
   const Home({super.key});
@@ -21,8 +23,8 @@ class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
   @override
   void initState() {
     _tabController = TabController(
-      length: 4,
-      initialIndex: 1,
+      length: 5,
+      initialIndex: 4,
       vsync: this,
     );
     super.initState();
@@ -38,6 +40,8 @@ class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
         return 'Desk';
       case 3:
         return 'Appointments';
+      case 4:
+        return 'Patients';
 
       default:
         return 'Dashboard';
@@ -68,6 +72,7 @@ class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
           DoctorScreen(),
           DeskScreen(),
           AppointmentScreen(),
+          PatientsScreen(),
         ],
       ),
       drawer: Drawer(
@@ -106,7 +111,7 @@ class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
                 height: 20,
               ),
               DrawerButton(
-                iconData: Icons.percent_outlined,
+                iconData: Icons.person_outline,
                 label: 'DOCTORS',
                 onPressed: () {
                   _tabController!.animateTo(1);
@@ -140,6 +145,19 @@ class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
                   Navigator.pop(context);
                 },
                 isSelected: _tabController!.index == 3,
+              ),
+              const SizedBox(
+                height: 20,
+              ),
+              DrawerButton(
+                iconData: Icons.person_3_outlined,
+                label: 'PATIENTS',
+                onPressed: () {
+                  _tabController!.animateTo(4);
+                  setState(() {});
+                  Navigator.pop(context);
+                },
+                isSelected: _tabController!.index == 4,
               ),
               const SizedBox(
                 height: 20,

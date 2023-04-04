@@ -3,8 +3,8 @@ import 'package:intl/intl.dart';
 import 'package:medcare_admin/widgets/custom_card.dart';
 import 'package:medcare_admin/widgets/dashcard.dart';
 
-import '../widgets/custom_search.dart';
-import '../widgets/department_selector.dart';
+import '../../widgets/custom_search.dart';
+import '../../widgets/department_selector.dart';
 
 class DashboardScreen extends StatefulWidget {
   const DashboardScreen({super.key});

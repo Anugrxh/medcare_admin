@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 
-import 'custom_card.dart';
+import '../custom_action_button.dart';
+import '../custom_card.dart';
 
-class DoctorCard extends StatelessWidget {
-  const DoctorCard({
+class PatientAppointmentCard extends StatelessWidget {
+  const PatientAppointmentCard({
     super.key,
   });
 
@@ -20,50 +21,20 @@ class DoctorCard extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Row(
-                children: [
-                  Expanded(
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          '#432342',
-                          style:
-                              Theme.of(context).textTheme.bodySmall?.copyWith(
-                                    color: Colors.black45,
-                                    fontWeight: FontWeight.bold,
-                                  ),
-                        ),
-                        const SizedBox(height: 5),
-                        Text(
-                          'Dr.Some Doctor',
-                          style:
-                              Theme.of(context).textTheme.titleMedium?.copyWith(
-                                    color: Colors.black,
-                                    fontWeight: FontWeight.bold,
-                                  ),
-                        ),
-                      ],
+              Text(
+                '#432342',
+                style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                      color: Colors.black45,
+                      fontWeight: FontWeight.bold,
                     ),
-                  ),
-                  const SizedBox(
-                    width: 10,
-                  ),
-                  IconButton(
-                    onPressed: () {},
-                    icon: const Icon(
-                      Icons.edit_outlined,
-                      color: Colors.orange,
+              ),
+              const SizedBox(height: 5),
+              Text(
+                'Dr.Some Doctor',
+                style: Theme.of(context).textTheme.titleMedium?.copyWith(
+                      color: Colors.black,
+                      fontWeight: FontWeight.bold,
                     ),
-                  ),
-                  IconButton(
-                    onPressed: () {},
-                    icon: const Icon(
-                      Icons.delete_forever_outlined,
-                      color: Colors.red,
-                    ),
-                  ),
-                ],
               ),
               const Divider(
                 height: 15,
@@ -76,7 +47,7 @@ class DoctorCard extends StatelessWidget {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
-                          'Time From',
+                          'Date',
                           style:
                               Theme.of(context).textTheme.labelMedium?.copyWith(
                                     color: Colors.black45,
@@ -85,7 +56,7 @@ class DoctorCard extends StatelessWidget {
                         ),
                         const SizedBox(height: 5),
                         Text(
-                          '10:20 AM',
+                          '10/10/2022',
                           style:
                               Theme.of(context).textTheme.titleSmall?.copyWith(
                                     color: Colors.black,
@@ -100,7 +71,7 @@ class DoctorCard extends StatelessWidget {
                       crossAxisAlignment: CrossAxisAlignment.end,
                       children: [
                         Text(
-                          'Time To',
+                          'Time',
                           style:
                               Theme.of(context).textTheme.labelMedium?.copyWith(
                                     color: Colors.black45,
@@ -151,7 +122,7 @@ class DoctorCard extends StatelessWidget {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
-                          'Max. Token',
+                          'Token',
                           style:
                               Theme.of(context).textTheme.labelMedium?.copyWith(
                                     color: Colors.black45,
@@ -195,6 +166,15 @@ class DoctorCard extends StatelessWidget {
                     ),
                   ),
                 ],
+              ),
+              const Divider(
+                height: 15,
+                color: Color.fromARGB(66, 176, 176, 176),
+              ),
+              CustomActionButton(
+                iconData: Icons.document_scanner_outlined,
+                label: 'Prescription',
+                onPressed: () {},
               ),
             ],
           ),
