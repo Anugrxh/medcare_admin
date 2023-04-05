@@ -2,10 +2,15 @@ import 'package:flutter/material.dart';
 import 'package:medcare_admin/widgets/custom_action_button.dart';
 import 'package:medcare_admin/widgets/patient/patient_appointment_card.dart';
 
+import '../util/get_age.dart';
 import '../widgets/token_card.dart';
 
 class PatientDetailsScreen extends StatelessWidget {
-  const PatientDetailsScreen({super.key});
+  final Map<String, dynamic> patientDetails;
+  const PatientDetailsScreen({
+    super.key,
+    required this.patientDetails,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -33,68 +38,43 @@ class PatientDetailsScreen extends StatelessWidget {
               const SizedBox(
                 height: 40,
               ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      const Text(
-                        '#23423123',
-                        style: TextStyle(
-                          fontWeight: FontWeight.bold,
-                          color: Colors.black45,
-                          fontSize: 15,
-                        ),
-                      ),
-                      const SizedBox(
-                        height: 5,
-                      ),
-                      Text(
-                        'Patient Name',
-                        style: Theme.of(context)
-                            .textTheme
-                            .headlineMedium
-                            ?.copyWith(
-                              fontWeight: FontWeight.bold,
-                              color: Colors.black,
-                            ),
-                      ),
-                      const SizedBox(
-                        height: 5,
-                      ),
-                      Text(
-                        '23 Male',
-                        style: Theme.of(context).textTheme.titleLarge?.copyWith(
-                              fontWeight: FontWeight.bold,
-                              color: Colors.black54,
-                            ),
-                      ),
-                    ],
-                  ),
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.end,
-                    children: [
-                      Text(
-                        'patient@gmail.com',
-                        style: Theme.of(context).textTheme.titleSmall?.copyWith(
-                              fontWeight: FontWeight.bold,
-                              color: Colors.black54,
-                            ),
-                      ),
-                      const SizedBox(
-                        height: 15,
-                      ),
-                      Text(
-                        '9877123123',
-                        style: Theme.of(context).textTheme.titleSmall?.copyWith(
-                              fontWeight: FontWeight.bold,
-                              color: Colors.black54,
-                            ),
-                      ),
-                    ],
-                  ),
-                ],
+              Text(
+                '#${patientDetails['id']}',
+                style: const TextStyle(
+                  fontWeight: FontWeight.bold,
+                  color: Colors.black45,
+                  fontSize: 15,
+                ),
+              ),
+              const SizedBox(
+                height: 5,
+              ),
+              Text(
+                patientDetails['name'],
+                style: Theme.of(context).textTheme.headlineMedium?.copyWith(
+                      fontWeight: FontWeight.bold,
+                      color: Colors.black,
+                    ),
+              ),
+              const SizedBox(
+                height: 5,
+              ),
+              Text(
+                '${getAge(DateTime.parse(patientDetails['dob'].toString()))}  ${patientDetails['sex']}',
+                style: Theme.of(context).textTheme.titleLarge?.copyWith(
+                      fontWeight: FontWeight.bold,
+                      color: Colors.black54,
+                    ),
+              ),
+              const SizedBox(
+                height: 10,
+              ),
+              Text(
+                patientDetails['phone_number'],
+                style: Theme.of(context).textTheme.titleSmall?.copyWith(
+                      fontWeight: FontWeight.bold,
+                      color: Colors.black54,
+                    ),
               ),
               const Divider(
                 height: 40,

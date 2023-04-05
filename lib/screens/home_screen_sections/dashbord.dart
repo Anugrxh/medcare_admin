@@ -50,24 +50,26 @@ class _DashboardScreenState extends State<DashboardScreen> {
             Wrap(
               spacing: 20,
               runSpacing: 20,
-              children: [
+              children: const [
                 DashCard(
                   iconData: Icons.receipt_outlined,
                   label: 'Total Tokens Today',
                   value: '340',
-                  onPressed: () {},
                 ),
                 DashCard(
                   iconData: Icons.person_outline,
                   label: 'Total Doctors',
                   value: '26',
-                  onPressed: () {},
                 ),
                 DashCard(
                   iconData: Icons.desk_outlined,
                   label: 'Total Desk',
                   value: '12',
-                  onPressed: () {},
+                ),
+                DashCard(
+                  iconData: Icons.category_outlined,
+                  label: 'Total Departments',
+                  value: '16',
                 ),
               ],
             ),

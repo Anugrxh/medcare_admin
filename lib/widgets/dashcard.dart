@@ -4,13 +4,13 @@ import 'package:medcare_admin/widgets/custom_card.dart';
 class DashCard extends StatelessWidget {
   final String label, value;
   final IconData iconData;
-  final Function() onPressed;
+  final Function()? onPressed;
   const DashCard({
     Key? key,
     required this.label,
     required this.value,
     required this.iconData,
-    required this.onPressed,
+    this.onPressed,
   }) : super(key: key);
 
   @override
@@ -18,7 +18,7 @@ class DashCard extends StatelessWidget {
     return CustomCard(
       onPressed: onPressed,
       child: SizedBox(
-        width: 250,
+        width: 230,
         child: Padding(
           padding: const EdgeInsets.only(
             left: 20,

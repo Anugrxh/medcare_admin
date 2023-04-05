@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:medcare_admin/screens/home_screen_sections/departments_screen.dart';
 import 'package:medcare_admin/screens/home_screen_sections/patients_screen.dart';
 
 import 'package:medcare_admin/screens/login.dart';
@@ -23,8 +24,8 @@ class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
   @override
   void initState() {
     _tabController = TabController(
-      length: 5,
-      initialIndex: 4,
+      length: 6,
+      initialIndex: 5,
       vsync: this,
     );
     super.initState();
@@ -42,6 +43,8 @@ class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
         return 'Appointments';
       case 4:
         return 'Patients';
+      case 5:
+        return 'Departments';
 
       default:
         return 'Dashboard';
@@ -73,6 +76,7 @@ class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
           DeskScreen(),
           AppointmentScreen(),
           PatientsScreen(),
+          DepartmentsScreen(),
         ],
       ),
       drawer: Drawer(
@@ -158,6 +162,19 @@ class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
                   Navigator.pop(context);
                 },
                 isSelected: _tabController!.index == 4,
+              ),
+              const SizedBox(
+                height: 20,
+              ),
+              DrawerButton(
+                iconData: Icons.category_outlined,
+                label: 'DEPARTMENTS',
+                onPressed: () {
+                  _tabController!.animateTo(5);
+                  setState(() {});
+                  Navigator.pop(context);
+                },
+                isSelected: _tabController!.index == 5,
               ),
               const SizedBox(
                 height: 20,
