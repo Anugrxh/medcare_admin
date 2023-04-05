@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:medcare_admin/blocs/patients/manage_patients/manage_patients_bloc.dart';
 import 'package:medcare_admin/widgets/custom_action_button.dart';
+import 'package:medcare_admin/widgets/custom_alert_dialog.dart';
 import 'package:medcare_admin/widgets/patient/add_patient_dialog.dart';
 import 'package:medcare_admin/widgets/patient/patient_card.dart';
 
@@ -31,7 +32,13 @@ class _PatientsScreenState extends State<PatientsScreen> {
       child: BlocConsumer<ManagePatientsBloc, ManagePatientsState>(
         listener: (context, state) {
           if (state is ManagePatientsFailureState) {
-            //show dialog
+            showDialog(
+              context: context,
+              builder: (context) => CustomAlertDialog(
+                title: 'Failure',
+                message: state.message,
+              ),
+            );
           }
         },
         builder: (context, state) {
@@ -105,6 +112,7 @@ class _PatientsScreenState extends State<PatientsScreen> {
                                 child: Wrap(
                                   spacing: 20,
                                   runSpacing: 20,
+                                  alignment: WrapAlignment.start,
                                   children: List<Widget>.generate(
                                     state.patients.length,
                                     (index) => PatientCard(

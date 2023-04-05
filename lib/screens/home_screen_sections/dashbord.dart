@@ -98,7 +98,9 @@ class _DashboardScreenState extends State<DashboardScreen> {
                 const SizedBox(
                   width: 10,
                 ),
-                const DepartmentSelector(),
+                DepartmentSelector(
+                  onSelect: (id) {},
+                ),
               ],
             ),
             const SizedBox(height: 20),

@@ -1,18 +1,24 @@
 import 'package:flutter/material.dart';
+import 'package:medcare_admin/blocs/doctor/doctor_bloc.dart';
 
 import '../custom_action_button.dart';
 import '../custom_card.dart';
 
 class DoctorCard extends StatelessWidget {
+  final Map<String, dynamic> doctorDetails;
+  final DoctorBloc doctorBloc;
+
   const DoctorCard({
     super.key,
+    required this.doctorDetails,
+    required this.doctorBloc,
   });
 
   @override
   Widget build(BuildContext context) {
     return CustomCard(
       child: SizedBox(
-        width: 312.5,
+        width: 310,
         child: Padding(
           padding: const EdgeInsets.symmetric(
             horizontal: 15,
@@ -70,6 +76,82 @@ class DoctorCard extends StatelessWidget {
                 height: 15,
                 color: Color.fromARGB(66, 176, 176, 176),
               ),
+              Text(
+                'Age & Gender',
+                style: Theme.of(context).textTheme.labelMedium?.copyWith(
+                      color: Colors.black45,
+                      fontWeight: FontWeight.bold,
+                    ),
+              ),
+              const SizedBox(height: 5),
+              Text(
+                '35 male',
+                style: Theme.of(context).textTheme.titleSmall?.copyWith(
+                      color: Colors.black,
+                      fontWeight: FontWeight.bold,
+                    ),
+              ),
+              const Divider(
+                height: 15,
+                color: Color.fromARGB(66, 176, 176, 176),
+              ),
+              Text(
+                'Department',
+                style: Theme.of(context).textTheme.labelMedium?.copyWith(
+                      color: Colors.black45,
+                      fontWeight: FontWeight.bold,
+                    ),
+              ),
+              const SizedBox(height: 5),
+              Text(
+                'Department Name',
+                style: Theme.of(context).textTheme.titleSmall?.copyWith(
+                      color: Colors.black,
+                      fontWeight: FontWeight.bold,
+                    ),
+              ),
+              const Divider(
+                height: 15,
+                color: Color.fromARGB(66, 176, 176, 176),
+              ),
+              Text(
+                'Email',
+                style: Theme.of(context).textTheme.labelMedium?.copyWith(
+                      color: Colors.black45,
+                      fontWeight: FontWeight.bold,
+                    ),
+              ),
+              const SizedBox(height: 5),
+              Text(
+                'mail@mail.com',
+                style: Theme.of(context).textTheme.titleSmall?.copyWith(
+                      color: Colors.black,
+                      fontWeight: FontWeight.bold,
+                    ),
+              ),
+              const Divider(
+                height: 15,
+                color: Color.fromARGB(66, 176, 176, 176),
+              ),
+              Text(
+                'Phone Number',
+                style: Theme.of(context).textTheme.labelMedium?.copyWith(
+                      color: Colors.black45,
+                      fontWeight: FontWeight.bold,
+                    ),
+              ),
+              const SizedBox(height: 5),
+              Text(
+                '9879879877',
+                style: Theme.of(context).textTheme.titleSmall?.copyWith(
+                      color: Colors.black,
+                      fontWeight: FontWeight.bold,
+                    ),
+              ),
+              const Divider(
+                height: 15,
+                color: Color.fromARGB(66, 176, 176, 176),
+              ),
               Row(
                 children: [
                   Expanded(
@@ -121,25 +203,6 @@ class DoctorCard extends StatelessWidget {
                     ),
                   ),
                 ],
-              ),
-              const Divider(
-                height: 15,
-                color: Color.fromARGB(66, 176, 176, 176),
-              ),
-              Text(
-                'Department',
-                style: Theme.of(context).textTheme.labelMedium?.copyWith(
-                      color: Colors.black45,
-                      fontWeight: FontWeight.bold,
-                    ),
-              ),
-              const SizedBox(height: 5),
-              Text(
-                'Department Name',
-                style: Theme.of(context).textTheme.titleSmall?.copyWith(
-                      color: Colors.black,
-                      fontWeight: FontWeight.bold,
-                    ),
               ),
               const Divider(
                 height: 15,

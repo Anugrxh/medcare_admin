@@ -36,7 +36,9 @@ class _AppointmentScreenState extends State<AppointmentScreen> {
                 const SizedBox(
                   width: 10,
                 ),
-                const DepartmentSelector(),
+                DepartmentSelector(
+                  onSelect: (id) {},
+                ),
               ],
             ),
             const SizedBox(height: 20),

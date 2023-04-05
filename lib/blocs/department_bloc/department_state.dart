@@ -16,5 +16,8 @@ class DepartmentSuccessState extends DepartmentState {
 class DepartmentFailureState extends DepartmentState {
   final String message;
 
-  DepartmentFailureState({required this.message});
+  DepartmentFailureState({
+    this.message =
+        'Something went wrong, Please check your connection and try again!.',
+  });
 }
