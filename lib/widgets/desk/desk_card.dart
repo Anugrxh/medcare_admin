@@ -1,18 +1,26 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
+import '../../blocs/desk/desk_bloc.dart';
 import '../custom_action_button.dart';
+import '../custom_alert_dialog.dart';
 import '../custom_card.dart';
+import 'add_edit_desk_dialog.dart';
 
 class DeskCard extends StatelessWidget {
+  final DeskBloc deskBloc;
+  final Map<String, dynamic> deskDetails;
   const DeskCard({
     super.key,
+    required this.deskBloc,
+    required this.deskDetails,
   });
 
   @override
   Widget build(BuildContext context) {
     return CustomCard(
       child: SizedBox(
-        width: 312.5,
+        width: 310,
         child: Padding(
           padding: const EdgeInsets.symmetric(
             horizontal: 15,
@@ -28,7 +36,7 @@ class DeskCard extends StatelessWidget {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
-                          '#432342',
+                          '#${deskDetails['id']}',
                           style:
                               Theme.of(context).textTheme.bodySmall?.copyWith(
                                     color: Colors.black45,
@@ -37,7 +45,7 @@ class DeskCard extends StatelessWidget {
                         ),
                         const SizedBox(height: 5),
                         Text(
-                          'Desk User Name',
+                          deskDetails['name'],
                           style:
                               Theme.of(context).textTheme.titleMedium?.copyWith(
                                     color: Colors.black,
@@ -51,14 +59,43 @@ class DeskCard extends StatelessWidget {
                     width: 10,
                   ),
                   IconButton(
-                    onPressed: () {},
+                    onPressed: () {
+                      showDialog(
+                        context: context,
+                        builder: (context) => BlocProvider<DeskBloc>.value(
+                          value: deskBloc,
+                          child: AddEditDeskDialog(
+                            deskDetails: deskDetails,
+                          ),
+                        ),
+                      );
+                    },
                     icon: const Icon(
                       Icons.edit_outlined,
                       color: Colors.orange,
                     ),
                   ),
                   IconButton(
-                    onPressed: () {},
+                    onPressed: () {
+                      showDialog(
+                        context: context,
+                        builder: (_) => CustomAlertDialog(
+                          title: 'Are you sure?',
+                          message:
+                              'Are you sure you want to delet this desk user? any data associated with this desk user will be deleted as well',
+                          primaryButtonLabel: 'Delete',
+                          primaryOnPressed: () {
+                            deskBloc.add(
+                              DeleteDeskEvent(
+                                userId: deskDetails['user_id'],
+                              ),
+                            );
+                            Navigator.pop(context);
+                          },
+                          secondaryButtonLabel: 'Cancel',
+                        ),
+                      );
+                    },
                     icon: const Icon(
                       Icons.delete_forever_outlined,
                       color: Colors.red,
@@ -79,7 +116,7 @@ class DeskCard extends StatelessWidget {
               ),
               const SizedBox(height: 5),
               Text(
-                'deskuser@medcare.com',
+                deskDetails['email'],
                 style: Theme.of(context).textTheme.titleSmall?.copyWith(
                       color: Colors.black,
                       fontWeight: FontWeight.bold,
@@ -98,7 +135,7 @@ class DeskCard extends StatelessWidget {
               ),
               const SizedBox(height: 5),
               Text(
-                '9876543210',
+                deskDetails['phone_number'],
                 style: Theme.of(context).textTheme.titleSmall?.copyWith(
                       color: Colors.black,
                       fontWeight: FontWeight.bold,
@@ -124,9 +161,13 @@ class DeskCard extends StatelessWidget {
                       ),
                       const SizedBox(height: 5),
                       Text(
-                        'Active',
+                        deskDetails['status'] == 'active'
+                            ? 'Active'
+                            : 'Blocked',
                         style: Theme.of(context).textTheme.titleSmall?.copyWith(
-                              color: Colors.green,
+                              color: deskDetails['status'] == 'active'
+                                  ? Colors.green
+                                  : Colors.red,
                               fontWeight: FontWeight.bold,
                             ),
                       ),
@@ -134,9 +175,21 @@ class DeskCard extends StatelessWidget {
                   ),
                   CustomActionButton(
                     iconData: Icons.block,
-                    color: Colors.red,
-                    label: 'Block',
-                    onPressed: () {},
+                    color: deskDetails['status'] == 'active'
+                        ? Colors.red
+                        : Colors.green,
+                    label:
+                        deskDetails['status'] == 'active' ? 'Block' : 'Unblock',
+                    onPressed: () {
+                      deskBloc.add(
+                        ChangeStatusDeskEvent(
+                          userId: deskDetails['user_id'],
+                          status: deskDetails['status'] == 'active'
+                              ? 'blocked'
+                              : 'active',
+                        ),
+                      );
+                    },
                   )
                 ],
               ),

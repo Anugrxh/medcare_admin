@@ -54,12 +54,14 @@ class _DoctorScreenState extends State<DoctorScreen> {
                     builder: (context) => CustomAlertDialog(
                       title: 'Failure',
                       message: state.message,
+                      primaryButtonLabel: 'Ok',
                     ),
                   );
                 }
               },
               builder: (context, state) {
                 return Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     const SizedBox(
                       height: 30,

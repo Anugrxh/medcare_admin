@@ -37,6 +37,7 @@ class _PatientsScreenState extends State<PatientsScreen> {
               builder: (context) => CustomAlertDialog(
                 title: 'Failure',
                 message: state.message,
+                primaryButtonLabel: 'Ok',
               ),
             );
           }

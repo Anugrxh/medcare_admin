@@ -43,7 +43,7 @@ class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
 
     _tabController = TabController(
       length: 6,
-      initialIndex: 1,
+      initialIndex: 2,
       vsync: this,
     );
     super.initState();
@@ -342,6 +342,7 @@ class _ChangePasswordDialogState extends State<ChangePasswordDialog> {
             builder: (context) => CustomAlertDialog(
               title: 'Failed!',
               message: e.toString(),
+              primaryButtonLabel: 'Ok',
             ),
           );
         }

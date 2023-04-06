@@ -65,7 +65,7 @@ class DoctorCard extends StatelessWidget {
                     onPressed: () {
                       showDialog(
                         context: context,
-                        builder: (context) => BlocProvider.value(
+                        builder: (context) => BlocProvider<DoctorBloc>.value(
                           value: doctorBloc,
                           child: AddEditDoctorDialog(
                             doctorDetails: doctorDetails,
