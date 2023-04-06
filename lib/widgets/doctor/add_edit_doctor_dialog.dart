@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:medcare_admin/blocs/doctor/doctor_bloc.dart';
+import 'package:medcare_admin/util/postgres_time_to_time_of_day.dart';
 
 import '../custom_alert_dialog.dart';
 import '../custom_button.dart';
@@ -10,16 +11,18 @@ import '../department_selector.dart';
 import '../custom_time_picker.dart';
 import '../gender_selector.dart';
 
-class AddDoctorDialog extends StatefulWidget {
-  const AddDoctorDialog({
+class AddEditDoctorDialog extends StatefulWidget {
+  final Map<String, dynamic>? doctorDetails;
+  const AddEditDoctorDialog({
     super.key,
+    this.doctorDetails,
   });
 
   @override
-  State<AddDoctorDialog> createState() => _AddDoctorDialogState();
+  State<AddEditDoctorDialog> createState() => _AddEditDoctorDialogState();
 }
 
-class _AddDoctorDialogState extends State<AddDoctorDialog> {
+class _AddEditDoctorDialogState extends State<AddEditDoctorDialog> {
   final GlobalKey<FormState> _formState = GlobalKey<FormState>();
   final TextEditingController _nameController = TextEditingController();
   final TextEditingController _emailController = TextEditingController();
@@ -35,6 +38,25 @@ class _AddDoctorDialogState extends State<AddDoctorDialog> {
   TimeOfDay? _timeFrom, _timeTo;
 
   bool _isObscure = true;
+
+  @override
+  void initState() {
+    if (widget.doctorDetails != null) {
+      _nameController.text = widget.doctorDetails!['name'];
+      _emailController.text = widget.doctorDetails!['email'];
+      _phoneNumberController.text = widget.doctorDetails!['phone_number'];
+      _maxTokenController.text = widget.doctorDetails!['max_token'].toString();
+      _feeController.text = widget.doctorDetails!['fee'].toString();
+      _departmentId = widget.doctorDetails!['department_id'];
+      _gender = widget.doctorDetails!['sex'];
+      _dob = DateTime.parse(widget.doctorDetails!['dob']);
+      _timeFrom =
+          convertPostgresTimeToTimeOfDay(widget.doctorDetails!['time_from']);
+      _timeTo =
+          convertPostgresTimeToTimeOfDay(widget.doctorDetails!['time_to']);
+    }
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -68,7 +90,9 @@ class _AddDoctorDialogState extends State<AddDoctorDialog> {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Text(
-                            "Add Doctor",
+                            widget.doctorDetails != null
+                                ? "Edit Doctor"
+                                : "Add Doctor",
                             style: Theme.of(context)
                                 .textTheme
                                 .titleLarge
@@ -79,7 +103,9 @@ class _AddDoctorDialogState extends State<AddDoctorDialog> {
                           ),
                           const SizedBox(height: 5),
                           Text(
-                            "Enter the following details to add a doctor.",
+                            widget.doctorDetails != null
+                                ? "Edit the following details and save to apply them."
+                                : "Enter the following details to add a doctor.",
                             style: Theme.of(context)
                                 .textTheme
                                 .bodyMedium
@@ -182,7 +208,9 @@ class _AddDoctorDialogState extends State<AddDoctorDialog> {
                               obscureText: _isObscure,
                               controller: _passwordController,
                               validator: (value) {
-                                if (value != null && value.trim().isNotEmpty) {
+                                if ((value != null &&
+                                        value.trim().isNotEmpty) ||
+                                    widget.doctorDetails != null) {
                                   return null;
                                 } else {
                                   return 'Enter password';
@@ -270,6 +298,7 @@ class _AddDoctorDialogState extends State<AddDoctorDialog> {
                           ),
                           const SizedBox(height: 5),
                           DepartmentSelector(
+                            selectedDepartment: _departmentId ?? 0,
                             onSelect: (departmentId) {
                               _departmentId = departmentId;
                             },
@@ -287,6 +316,7 @@ class _AddDoctorDialogState extends State<AddDoctorDialog> {
                           ),
                           const SizedBox(height: 5),
                           CustomDatePicker(
+                            defaultDate: _dob,
                             onPick: (date) {
                               _dob = date;
                             },
@@ -310,6 +340,7 @@ class _AddDoctorDialogState extends State<AddDoctorDialog> {
                                     ),
                                     const SizedBox(height: 5),
                                     CustomTimePicker(
+                                      defaultTime: _timeFrom,
                                       onPick: (time) {
                                         _timeFrom = time;
                                       },
@@ -334,6 +365,7 @@ class _AddDoctorDialogState extends State<AddDoctorDialog> {
                                     ),
                                     const SizedBox(height: 5),
                                     CustomTimePicker(
+                                      defaultTime: _timeTo,
                                       onPick: (time) {
                                         _timeTo = time;
                                       },
@@ -427,7 +459,7 @@ class _AddDoctorDialogState extends State<AddDoctorDialog> {
                   color: Color.fromARGB(66, 176, 176, 176),
                 ),
                 CustomButton(
-                  label: 'Add',
+                  label: widget.doctorDetails != null ? 'Save' : 'Add',
                   labelColor: Colors.white,
                   buttonColor: Colors.blue,
                   onPressed: () {
@@ -436,21 +468,44 @@ class _AddDoctorDialogState extends State<AddDoctorDialog> {
                         _timeFrom != null &&
                         _timeTo != null &&
                         _departmentId != null) {
-                      BlocProvider.of<DoctorBloc>(context).add(
-                        AddDoctorEvent(
-                          name: _nameController.text.trim(),
-                          email: _emailController.text.trim(),
-                          password: _passwordController.text.trim(),
-                          phone: _phoneNumberController.text.trim(),
-                          maxToken: int.parse(_maxTokenController.text.trim()),
-                          departmentId: _departmentId!,
-                          fee: int.parse(_feeController.text.trim()),
-                          sex: _gender,
-                          dob: _dob!,
-                          timeFrom: _timeFrom!,
-                          timeTo: _timeTo!,
-                        ),
-                      );
+                      if (widget.doctorDetails != null) {
+                        BlocProvider.of<DoctorBloc>(context).add(
+                          EditDoctorEvent(
+                            userId: widget.doctorDetails!['user_id'],
+                            name: _nameController.text.trim(),
+                            email: _emailController.text.trim(),
+                            password: _passwordController.text.trim().isNotEmpty
+                                ? _passwordController.text.trim()
+                                : null,
+                            phone: _phoneNumberController.text.trim(),
+                            maxToken:
+                                int.parse(_maxTokenController.text.trim()),
+                            departmentId: _departmentId!,
+                            fee: int.parse(_feeController.text.trim()),
+                            sex: _gender,
+                            dob: _dob!,
+                            timeFrom: _timeFrom!,
+                            timeTo: _timeTo!,
+                          ),
+                        );
+                      } else {
+                        BlocProvider.of<DoctorBloc>(context).add(
+                          AddDoctorEvent(
+                            name: _nameController.text.trim(),
+                            email: _emailController.text.trim(),
+                            password: _passwordController.text.trim(),
+                            phone: _phoneNumberController.text.trim(),
+                            maxToken:
+                                int.parse(_maxTokenController.text.trim()),
+                            departmentId: _departmentId!,
+                            fee: int.parse(_feeController.text.trim()),
+                            sex: _gender,
+                            dob: _dob!,
+                            timeFrom: _timeFrom!,
+                            timeTo: _timeTo!,
+                          ),
+                        );
+                      }
                       Navigator.pop(context);
                     } else if (_departmentId == null) {
                       showDialog(

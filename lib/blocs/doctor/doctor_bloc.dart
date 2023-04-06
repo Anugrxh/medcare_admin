@@ -86,7 +86,6 @@ class DoctorBloc extends Bloc<DoctorEvent, DoctorState> {
           );
           if (userDetails.user != null) {
             await queryTable.update({
-              'user_id': userDetails.user!.id,
               'name': event.name,
               'phone_number': event.phone,
               'dob': event.dob.toIso8601String(),
@@ -101,9 +100,9 @@ class DoctorBloc extends Bloc<DoctorEvent, DoctorState> {
           } else {
             emit(DoctorFailureState());
           }
-        } else if (event is RemoveDoctorEvent) {
-          await supabaseClient.auth.admin.deleteUser(event.userId);
+        } else if (event is DeleteDoctorEvent) {
           await queryTable.delete().eq('user_id', event.userId);
+          await supabaseClient.auth.admin.deleteUser(event.userId);
           add(GetAllDoctorEvent());
         } else if (event is ChangeStatusDoctorEvent) {
           await supabaseClient.auth.admin.updateUserById(
@@ -112,6 +111,7 @@ class DoctorBloc extends Bloc<DoctorEvent, DoctorState> {
               userMetadata: {
                 'status': event.status,
               },
+              banDuration: event.status == 'active' ? 'none' : '1000h0m',
             ),
           );
           add(GetAllDoctorEvent());

@@ -7,7 +7,7 @@ import 'package:medcare_admin/widgets/custom_search.dart';
 import '../../widgets/custom_action_button.dart';
 import '../../widgets/custom_alert_dialog.dart';
 import '../../widgets/department_selector.dart';
-import '../../widgets/doctor/add_doctor_dialog.dart';
+import '../../widgets/doctor/add_edit_doctor_dialog.dart';
 import '../../widgets/doctor/doctor_card.dart';
 
 class DoctorScreen extends StatefulWidget {
@@ -94,7 +94,7 @@ class _DoctorScreenState extends State<DoctorScreen> {
                                 context: context,
                                 builder: (_) => BlocProvider<DoctorBloc>.value(
                                   value: doctorBloc,
-                                  child: const AddDoctorDialog(),
+                                  child: const AddEditDoctorDialog(),
                                 ),
                               );
                             },

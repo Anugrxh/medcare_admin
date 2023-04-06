@@ -7,9 +7,11 @@ import 'custom_alert_dialog.dart';
 
 class DepartmentSelector extends StatefulWidget {
   final Function(int) onSelect;
+  final int selectedDepartment;
   const DepartmentSelector({
     super.key,
     required this.onSelect,
+    this.selectedDepartment = 0,
   });
 
   @override
@@ -51,7 +53,7 @@ class _DepartmentSelectorState extends State<DepartmentSelector> {
             if (state is DepartmentSuccessState) {
               return DropdownMenu(
                 hintText: 'All Departments',
-                initialSelection: 0,
+                initialSelection: widget.selectedDepartment,
                 onSelected: (value) {
                   widget.onSelect(value);
                 },

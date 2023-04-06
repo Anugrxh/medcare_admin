@@ -1,8 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:medcare_admin/blocs/doctor/doctor_bloc.dart';
+import 'package:medcare_admin/util/postgres_time_to_time_of_day.dart';
 
+import '../../util/get_age.dart';
 import '../custom_action_button.dart';
+import '../custom_alert_dialog.dart';
 import '../custom_card.dart';
+import 'add_edit_doctor_dialog.dart';
 
 class DoctorCard extends StatelessWidget {
   final Map<String, dynamic> doctorDetails;
@@ -34,7 +39,7 @@ class DoctorCard extends StatelessWidget {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
-                          '#432342',
+                          '#${doctorDetails['id']}',
                           style:
                               Theme.of(context).textTheme.bodySmall?.copyWith(
                                     color: Colors.black45,
@@ -43,7 +48,7 @@ class DoctorCard extends StatelessWidget {
                         ),
                         const SizedBox(height: 5),
                         Text(
-                          'Dr.Some Doctor',
+                          doctorDetails['name'],
                           style:
                               Theme.of(context).textTheme.titleMedium?.copyWith(
                                     color: Colors.black,
@@ -57,14 +62,43 @@ class DoctorCard extends StatelessWidget {
                     width: 10,
                   ),
                   IconButton(
-                    onPressed: () {},
+                    onPressed: () {
+                      showDialog(
+                        context: context,
+                        builder: (context) => BlocProvider.value(
+                          value: doctorBloc,
+                          child: AddEditDoctorDialog(
+                            doctorDetails: doctorDetails,
+                          ),
+                        ),
+                      );
+                    },
                     icon: const Icon(
                       Icons.edit_outlined,
                       color: Colors.orange,
                     ),
                   ),
                   IconButton(
-                    onPressed: () {},
+                    onPressed: () {
+                      showDialog(
+                        context: context,
+                        builder: (_) => CustomAlertDialog(
+                          title: 'Are you sure?',
+                          message:
+                              'Are you sure you want to delet this doctor? any data associated with this doctor will be deleted as well',
+                          primaryButtonLabel: 'Delete',
+                          primaryOnPressed: () {
+                            doctorBloc.add(
+                              DeleteDoctorEvent(
+                                userId: doctorDetails['user_id'],
+                              ),
+                            );
+                            Navigator.pop(context);
+                          },
+                          secondaryButtonLabel: 'Cancel',
+                        ),
+                      );
+                    },
                     icon: const Icon(
                       Icons.delete_forever_outlined,
                       color: Colors.red,
@@ -85,7 +119,7 @@ class DoctorCard extends StatelessWidget {
               ),
               const SizedBox(height: 5),
               Text(
-                '35 male',
+                '${getAge(DateTime.parse(doctorDetails['dob'].toString()))}  ${doctorDetails['sex']}',
                 style: Theme.of(context).textTheme.titleSmall?.copyWith(
                       color: Colors.black,
                       fontWeight: FontWeight.bold,
@@ -104,7 +138,7 @@ class DoctorCard extends StatelessWidget {
               ),
               const SizedBox(height: 5),
               Text(
-                'Department Name',
+                doctorDetails['department'],
                 style: Theme.of(context).textTheme.titleSmall?.copyWith(
                       color: Colors.black,
                       fontWeight: FontWeight.bold,
@@ -123,7 +157,7 @@ class DoctorCard extends StatelessWidget {
               ),
               const SizedBox(height: 5),
               Text(
-                'mail@mail.com',
+                doctorDetails['email'],
                 style: Theme.of(context).textTheme.titleSmall?.copyWith(
                       color: Colors.black,
                       fontWeight: FontWeight.bold,
@@ -142,7 +176,7 @@ class DoctorCard extends StatelessWidget {
               ),
               const SizedBox(height: 5),
               Text(
-                '9879879877',
+                doctorDetails['phone_number'],
                 style: Theme.of(context).textTheme.titleSmall?.copyWith(
                       color: Colors.black,
                       fontWeight: FontWeight.bold,
@@ -168,7 +202,9 @@ class DoctorCard extends StatelessWidget {
                         ),
                         const SizedBox(height: 5),
                         Text(
-                          '10:20 AM',
+                          convertPostgresTimeToTimeOfDay(
+                                  doctorDetails['time_from'])
+                              .format(context),
                           style:
                               Theme.of(context).textTheme.titleSmall?.copyWith(
                                     color: Colors.black,
@@ -192,7 +228,9 @@ class DoctorCard extends StatelessWidget {
                         ),
                         const SizedBox(height: 5),
                         Text(
-                          '10:20 PM',
+                          convertPostgresTimeToTimeOfDay(
+                                  doctorDetails['time_to'])
+                              .format(context),
                           style:
                               Theme.of(context).textTheme.titleSmall?.copyWith(
                                     color: Colors.black,
@@ -224,7 +262,7 @@ class DoctorCard extends StatelessWidget {
                         ),
                         const SizedBox(height: 5),
                         Text(
-                          '100',
+                          doctorDetails['max_token'].toString(),
                           style:
                               Theme.of(context).textTheme.titleSmall?.copyWith(
                                     color: Colors.black,
@@ -248,7 +286,7 @@ class DoctorCard extends StatelessWidget {
                         ),
                         const SizedBox(height: 5),
                         Text(
-                          '350',
+                          doctorDetails['fee'].toString(),
                           style:
                               Theme.of(context).textTheme.titleSmall?.copyWith(
                                     color: Colors.black,
@@ -280,9 +318,11 @@ class DoctorCard extends StatelessWidget {
                       ),
                       const SizedBox(height: 5),
                       Text(
-                        'Active',
+                        doctorDetails['status'],
                         style: Theme.of(context).textTheme.titleSmall?.copyWith(
-                              color: Colors.green,
+                              color: doctorDetails['status'] == 'active'
+                                  ? Colors.green
+                                  : Colors.red,
                               fontWeight: FontWeight.bold,
                             ),
                       ),
@@ -290,9 +330,22 @@ class DoctorCard extends StatelessWidget {
                   ),
                   CustomActionButton(
                     iconData: Icons.block,
-                    color: Colors.red,
-                    label: 'Block',
-                    onPressed: () {},
+                    color: doctorDetails['status'] == 'active'
+                        ? Colors.red
+                        : Colors.green,
+                    label: doctorDetails['status'] == 'active'
+                        ? 'Block'
+                        : 'Unblock',
+                    onPressed: () {
+                      doctorBloc.add(
+                        ChangeStatusDoctorEvent(
+                          userId: doctorDetails['user_id'],
+                          status: doctorDetails['status'] == 'active'
+                              ? 'blocked'
+                              : 'active',
+                        ),
+                      );
+                    },
                   )
                 ],
               ),

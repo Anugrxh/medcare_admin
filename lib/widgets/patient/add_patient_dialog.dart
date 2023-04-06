@@ -6,9 +6,6 @@ import 'package:medcare_admin/widgets/custom_date_picker.dart';
 
 import '../custom_button.dart';
 import '../custom_card.dart';
-import '../custom_radio_button.dart';
-import '../department_selector.dart';
-import '../custom_time_picker.dart';
 import '../gender_selector.dart';
 
 class AddEditPatientDialog extends StatefulWidget {

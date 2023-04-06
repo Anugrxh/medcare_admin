@@ -47,10 +47,10 @@ class EditDoctorEvent extends DoctorEvent {
   });
 }
 
-class RemoveDoctorEvent extends DoctorEvent {
+class DeleteDoctorEvent extends DoctorEvent {
   final String userId;
 
-  RemoveDoctorEvent({required this.userId});
+  DeleteDoctorEvent({required this.userId});
 }
 
 class ChangeStatusDoctorEvent extends DoctorEvent {

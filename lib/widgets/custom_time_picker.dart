@@ -4,9 +4,11 @@ import 'custom_card.dart';
 
 class CustomTimePicker extends StatefulWidget {
   final Function(TimeOfDay) onPick;
+  final TimeOfDay? defaultTime;
   const CustomTimePicker({
     super.key,
     required this.onPick,
+    this.defaultTime,
   });
 
   @override
@@ -39,7 +41,11 @@ class _CustomTimePickerState extends State<CustomTimePicker> {
           alignment:
               pickedTime != null ? Alignment.center : Alignment.centerLeft,
           child: Text(
-            pickedTime != null ? pickedTime!.format(context) : 'Select Time',
+            pickedTime != null
+                ? pickedTime!.format(context)
+                : widget.defaultTime != null
+                    ? widget.defaultTime!.format(context)
+                    : 'Select Time',
             style: Theme.of(context).textTheme.titleMedium?.copyWith(
                   color: pickedTime != null ? Colors.black54 : Colors.black45,
                   fontWeight:
