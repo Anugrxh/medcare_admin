@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:medcare_admin/blocs/doctor/doctor_bloc.dart';
+import 'package:medcare_admin/util/get_number_of_10_minute_blocks.dart';
 import 'package:medcare_admin/util/postgres_time_to_time_of_day.dart';
 
 import '../../util/get_age.dart';
@@ -18,6 +19,27 @@ class DoctorCard extends StatelessWidget {
     required this.doctorDetails,
     required this.doctorBloc,
   });
+
+  String getOffDayString(int day) {
+    switch (day) {
+      case 1:
+        return 'Monday';
+      case 2:
+        return 'Tuesday';
+      case 3:
+        return 'Wednessday';
+      case 4:
+        return 'Thursday';
+      case 5:
+        return 'Friday';
+      case 6:
+        return 'Saturday';
+      case 7:
+        return 'Sunday';
+      default:
+        return 'Monday';
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -167,20 +189,57 @@ class DoctorCard extends StatelessWidget {
                 height: 15,
                 color: Color.fromARGB(66, 176, 176, 176),
               ),
-              Text(
-                'Phone Number',
-                style: Theme.of(context).textTheme.labelMedium?.copyWith(
-                      color: Colors.black45,
-                      fontWeight: FontWeight.bold,
+              Row(
+                children: [
+                  Expanded(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          'Phone Number',
+                          style:
+                              Theme.of(context).textTheme.labelMedium?.copyWith(
+                                    color: Colors.black45,
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                        ),
+                        const SizedBox(height: 5),
+                        Text(
+                          doctorDetails['phone_number'],
+                          style:
+                              Theme.of(context).textTheme.titleSmall?.copyWith(
+                                    color: Colors.black,
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                        ),
+                      ],
                     ),
-              ),
-              const SizedBox(height: 5),
-              Text(
-                doctorDetails['phone_number'],
-                style: Theme.of(context).textTheme.titleSmall?.copyWith(
-                      color: Colors.black,
-                      fontWeight: FontWeight.bold,
+                  ),
+                  Expanded(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.end,
+                      children: [
+                        Text(
+                          'Off Day',
+                          style:
+                              Theme.of(context).textTheme.labelMedium?.copyWith(
+                                    color: Colors.black45,
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                        ),
+                        const SizedBox(height: 5),
+                        Text(
+                          getOffDayString(doctorDetails['off_day']),
+                          style:
+                              Theme.of(context).textTheme.titleSmall?.copyWith(
+                                    color: Colors.black,
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                        ),
+                      ],
                     ),
+                  ),
+                ],
               ),
               const Divider(
                 height: 15,
@@ -262,7 +321,12 @@ class DoctorCard extends StatelessWidget {
                         ),
                         const SizedBox(height: 5),
                         Text(
-                          doctorDetails['max_token'].toString(),
+                          getNumberOf10MinuteBlocks(
+                                  convertPostgresTimeToTimeOfDay(
+                                      doctorDetails['time_from']),
+                                  convertPostgresTimeToTimeOfDay(
+                                      doctorDetails['time_to']))
+                              .toString(),
                           style:
                               Theme.of(context).textTheme.titleSmall?.copyWith(
                                     color: Colors.black,

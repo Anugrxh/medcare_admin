@@ -5,7 +5,7 @@ abstract class DoctorEvent {}
 
 class AddDoctorEvent extends DoctorEvent {
   final String name, email, phone, sex, password;
-  final int departmentId, maxToken, fee;
+  final int departmentId, fee, offDay; //offday 1-7 1:monday, 7:sunday
   final DateTime dob;
   final TimeOfDay timeFrom, timeTo;
 
@@ -14,10 +14,10 @@ class AddDoctorEvent extends DoctorEvent {
     required this.email,
     required this.password,
     required this.phone,
-    required this.maxToken,
     required this.departmentId,
     required this.fee,
     required this.sex,
+    required this.offDay,
     required this.dob,
     required this.timeFrom,
     required this.timeTo,
@@ -27,7 +27,7 @@ class AddDoctorEvent extends DoctorEvent {
 class EditDoctorEvent extends DoctorEvent {
   final String name, email, phone, sex, userId;
   final String? password;
-  final int departmentId, maxToken, fee;
+  final int departmentId, offDay, fee;
   final DateTime dob;
   final TimeOfDay timeFrom, timeTo;
 
@@ -36,7 +36,7 @@ class EditDoctorEvent extends DoctorEvent {
     required this.email,
     this.password,
     required this.phone,
-    required this.maxToken,
+    required this.offDay,
     required this.departmentId,
     required this.fee,
     required this.sex,

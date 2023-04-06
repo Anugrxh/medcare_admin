@@ -65,7 +65,7 @@ class DoctorBloc extends Bloc<DoctorEvent, DoctorState> {
               'department_id': event.departmentId,
               'time_from': formatTimeOfDay(event.timeFrom),
               'time_to': formatTimeOfDay(event.timeTo),
-              'max_token': event.maxToken,
+              'off_day': event.offDay,
             });
             add(GetAllDoctorEvent());
           } else {
@@ -94,7 +94,7 @@ class DoctorBloc extends Bloc<DoctorEvent, DoctorState> {
               'department_id': event.departmentId,
               'time_from': formatTimeOfDay(event.timeFrom),
               'time_to': formatTimeOfDay(event.timeTo),
-              'max_token': event.maxToken,
+              'off_day': event.offDay,
             }).eq('user_id', event.userId);
             add(GetAllDoctorEvent());
           } else {

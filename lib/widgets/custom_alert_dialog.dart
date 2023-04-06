@@ -8,6 +8,7 @@ class CustomAlertDialog extends StatelessWidget {
   final String? primaryButtonLabel, secondaryButtonLabel;
   final Function()? primaryOnPressed, secondaryOnPressed;
   final bool isLoading;
+  final double width;
   const CustomAlertDialog({
     super.key,
     required this.title,
@@ -17,6 +18,7 @@ class CustomAlertDialog extends StatelessWidget {
     this.primaryOnPressed,
     this.secondaryOnPressed,
     this.content,
+    this.width = 350,
     this.isLoading = false,
   });
 
@@ -28,7 +30,7 @@ class CustomAlertDialog extends StatelessWidget {
         borderRadius: BorderRadius.circular(10),
       ),
       child: SizedBox(
-        width: 350,
+        width: width,
         child: Padding(
           padding: const EdgeInsets.symmetric(
             horizontal: 15,

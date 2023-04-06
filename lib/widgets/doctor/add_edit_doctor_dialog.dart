@@ -28,10 +28,10 @@ class _AddEditDoctorDialogState extends State<AddEditDoctorDialog> {
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
   final TextEditingController _phoneNumberController = TextEditingController();
-  final TextEditingController _maxTokenController = TextEditingController();
   final TextEditingController _feeController = TextEditingController();
 
   int? _departmentId;
+  int _offDay = 7;
   String _gender = 'male';
 
   DateTime? _dob;
@@ -45,9 +45,9 @@ class _AddEditDoctorDialogState extends State<AddEditDoctorDialog> {
       _nameController.text = widget.doctorDetails!['name'];
       _emailController.text = widget.doctorDetails!['email'];
       _phoneNumberController.text = widget.doctorDetails!['phone_number'];
-      _maxTokenController.text = widget.doctorDetails!['max_token'].toString();
       _feeController.text = widget.doctorDetails!['fee'].toString();
       _departmentId = widget.doctorDetails!['department_id'];
+      _offDay = widget.doctorDetails!['off_day'];
       _gender = widget.doctorDetails!['sex'];
       _dob = DateTime.parse(widget.doctorDetails!['dob']);
       _timeFrom =
@@ -383,7 +383,7 @@ class _AddEditDoctorDialogState extends State<AddEditDoctorDialog> {
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
                                     Text(
-                                      'Max. Token',
+                                      'Off Day',
                                       style: Theme.of(context)
                                           .textTheme
                                           .labelMedium
@@ -394,19 +394,51 @@ class _AddEditDoctorDialogState extends State<AddEditDoctorDialog> {
                                     ),
                                     const SizedBox(height: 5),
                                     CustomCard(
-                                      child: TextFormField(
-                                        controller: _maxTokenController,
-                                        validator: (value) {
-                                          if (value != null &&
-                                              value.trim().isNotEmpty) {
-                                            return null;
-                                          } else {
-                                            return 'Enter maximum token';
+                                      child: DropdownMenu(
+                                        initialSelection: _offDay,
+                                        onSelected: (value) {
+                                          if (value != null) {
+                                            _offDay = value;
                                           }
                                         },
-                                        decoration: const InputDecoration(
-                                          hintText: 'eg. 100',
+                                        inputDecorationTheme:
+                                            InputDecorationTheme(
+                                          border: OutlineInputBorder(
+                                            borderRadius:
+                                                BorderRadius.circular(10),
+                                            borderSide: BorderSide.none,
+                                          ),
                                         ),
+                                        dropdownMenuEntries: const [
+                                          DropdownMenuEntry(
+                                            value: 1,
+                                            label: 'Monday',
+                                          ),
+                                          DropdownMenuEntry(
+                                            value: 2,
+                                            label: 'Tuesday',
+                                          ),
+                                          DropdownMenuEntry(
+                                            value: 3,
+                                            label: 'Wednessday',
+                                          ),
+                                          DropdownMenuEntry(
+                                            value: 4,
+                                            label: 'Thursday',
+                                          ),
+                                          DropdownMenuEntry(
+                                            value: 5,
+                                            label: 'Friday',
+                                          ),
+                                          DropdownMenuEntry(
+                                            value: 6,
+                                            label: 'Saturday',
+                                          ),
+                                          DropdownMenuEntry(
+                                            value: 7,
+                                            label: 'Sunday',
+                                          ),
+                                        ],
                                       ),
                                     ),
                                   ],
@@ -478,8 +510,7 @@ class _AddEditDoctorDialogState extends State<AddEditDoctorDialog> {
                                 ? _passwordController.text.trim()
                                 : null,
                             phone: _phoneNumberController.text.trim(),
-                            maxToken:
-                                int.parse(_maxTokenController.text.trim()),
+                            offDay: _offDay,
                             departmentId: _departmentId!,
                             fee: int.parse(_feeController.text.trim()),
                             sex: _gender,
@@ -495,8 +526,7 @@ class _AddEditDoctorDialogState extends State<AddEditDoctorDialog> {
                             email: _emailController.text.trim(),
                             password: _passwordController.text.trim(),
                             phone: _phoneNumberController.text.trim(),
-                            maxToken:
-                                int.parse(_maxTokenController.text.trim()),
+                            offDay: _offDay,
                             departmentId: _departmentId!,
                             fee: int.parse(_feeController.text.trim()),
                             sex: _gender,
