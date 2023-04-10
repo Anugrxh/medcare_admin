@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:medcare_admin/screens/home.dart';
+import 'package:medcare_admin/widgets/custom_alert_dialog.dart';
 import 'package:medcare_admin/widgets/custom_button.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:medcare_admin/widgets/custom_card.dart';
@@ -20,6 +21,8 @@ class _LoginState extends State<Login> {
   final GlobalKey<FormState> formKey = GlobalKey<FormState>();
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
+
+  bool _isObscure = true;
 
   @override
   void initState() {
@@ -66,11 +69,11 @@ class _LoginState extends State<Login> {
                       if (state is SignInFailureState) {
                         showDialog(
                           context: context,
-                          builder: (context) => const AlertDialog(
-                            title: Text("Login Failed"),
-                            content: Text(
-                              'Please check your email and password and try again.',
-                            ),
+                          builder: (context) => const CustomAlertDialog(
+                            title: 'Failed',
+                            message:
+                                'Please check your email and password and try again.',
+                            primaryButtonLabel: 'Ok',
                           ),
                         );
                       } else if (state is SignInSuccessState) {
@@ -155,7 +158,8 @@ class _LoginState extends State<Login> {
                                           }
                                         },
                                         decoration: InputDecoration(
-                                          contentPadding: EdgeInsets.symmetric(
+                                          contentPadding:
+                                              const EdgeInsets.symmetric(
                                             horizontal: 20,
                                             vertical: 10,
                                           ),
@@ -174,7 +178,7 @@ class _LoginState extends State<Login> {
                                       width: 300,
                                       child: TextFormField(
                                         controller: _passwordController,
-                                        obscureText: true,
+                                        obscureText: _isObscure,
                                         validator: (value) {
                                           if (value != null &&
                                               value.isNotEmpty) {
@@ -184,6 +188,18 @@ class _LoginState extends State<Login> {
                                           }
                                         },
                                         decoration: InputDecoration(
+                                          suffixIcon: IconButton(
+                                            onPressed: () {
+                                              _isObscure = !_isObscure;
+                                              setState(() {});
+                                            },
+                                            icon: Icon(
+                                              _isObscure
+                                                  ? Icons
+                                                      .visibility_off_outlined
+                                                  : Icons.visibility_outlined,
+                                            ),
+                                          ),
                                           border: OutlineInputBorder(
                                             borderRadius:
                                                 BorderRadius.circular(10),

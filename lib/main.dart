@@ -1,11 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:logger/logger.dart';
-import 'package:medcare_admin/screens/home.dart';
-import 'package:medcare_admin/screens/issued_tokens_screen.dart';
 import 'package:medcare_admin/screens/login.dart';
-import 'package:medcare_admin/screens/patient_details_screen.dart';
-import 'package:medcare_admin/util/get_next_available_time_block.dart';
-import 'package:medcare_admin/util/get_number_of_10_minute_blocks.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
 void main() async {

@@ -48,6 +48,7 @@ class DeskBloc extends Bloc<DeskEvent, DeskState> {
             AdminUserAttributes(
               email: event.email,
               password: event.password,
+              emailConfirm: true,
               userMetadata: {
                 'status': 'active',
               },
@@ -65,7 +66,7 @@ class DeskBloc extends Bloc<DeskEvent, DeskState> {
           }
         } else if (event is EditDeskEvent) {
           AdminUserAttributes attributes =
-              AdminUserAttributes(email: event.email);
+              AdminUserAttributes(email: event.email, emailConfirm: true);
 
           if (event.password != null) {
             attributes.password = event.password;

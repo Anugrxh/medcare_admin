@@ -1,21 +1,24 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:medcare_admin/blocs/patients/manage_patients/manage_patients_bloc.dart';
-import 'package:medcare_admin/screens/patient_details_screen.dart';
-import 'package:medcare_admin/widgets/custom_alert_dialog.dart';
-import 'package:medcare_admin/widgets/patient/add_patient_dialog.dart';
-
-import '../../util/get_age.dart';
+import '../../../blocs/patients/manage_patients/manage_patients_bloc.dart';
+import '../../../util/get_age.dart';
+import '../../screens/patient_details_screen.dart';
 import '../custom_action_button.dart';
+import '../custom_alert_dialog.dart';
 import '../custom_card.dart';
+import 'add_patient_dialog.dart';
 
 class PatientCard extends StatelessWidget {
   final Map<String, dynamic> patientDetails;
   final ManagePatientsBloc managePatientBloc;
+  final bool selectMode;
+  final Function()? onSelectPressed;
   const PatientCard({
     super.key,
     required this.patientDetails,
     required this.managePatientBloc,
+    this.onSelectPressed,
+    this.selectMode = false,
   });
 
   @override
@@ -136,19 +139,30 @@ class PatientCard extends StatelessWidget {
                 height: 20,
                 color: Color.fromARGB(66, 176, 176, 176),
               ),
-              CustomActionButton(
-                iconData: Icons.arrow_outward,
-                onPressed: () {
-                  Navigator.of(context).push(
-                    MaterialPageRoute(
-                      builder: (context) => PatientDetailsScreen(
-                        patientDetails: patientDetails,
-                      ),
-                    ),
-                  );
-                },
-                label: 'Appointments',
-              ),
+              !selectMode
+                  ? CustomActionButton(
+                      iconData: Icons.arrow_outward,
+                      onPressed: () {
+                        Navigator.of(context).push(
+                          MaterialPageRoute(
+                            builder: (context) => PatientDetailsScreen(
+                              patientDetails: patientDetails,
+                            ),
+                          ),
+                        );
+                      },
+                      label: 'Appointments',
+                    )
+                  : const SizedBox(),
+              selectMode
+                  ? CustomActionButton(
+                      iconData: Icons.done,
+                      onPressed: () {
+                        onSelectPressed?.call();
+                      },
+                      label: 'Select',
+                    )
+                  : const SizedBox(),
             ],
           ),
         ),
