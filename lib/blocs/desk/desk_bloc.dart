@@ -97,7 +97,7 @@ class DeskBloc extends Bloc<DeskEvent, DeskState> {
               userMetadata: {
                 'status': event.status,
               },
-              banDuration: event.status == 'active' ? 'none' : '1000h0m',
+              // banDuration: event.status == 'active' ? 'none' : '1000h0m',
             ),
           );
           add(GetAllDeskEvent());

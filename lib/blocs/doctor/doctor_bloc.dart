@@ -112,7 +112,7 @@ class DoctorBloc extends Bloc<DoctorEvent, DoctorState> {
               userMetadata: {
                 'status': event.status,
               },
-              banDuration: event.status == 'active' ? 'none' : '1000h0m',
+              // banDuration: event.status == 'active' ? 'none' : '1000h0m',
             ),
           );
           add(GetAllDoctorEvent());
