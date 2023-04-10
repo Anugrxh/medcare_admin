@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:medcare_admin/screens/home.dart';
+import 'package:medcare_admin/util/value_validators.dart';
 import 'package:medcare_admin/widgets/custom_alert_dialog.dart';
 import 'package:medcare_admin/widgets/custom_button.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -87,6 +88,7 @@ class _LoginState extends State<Login> {
                     builder: (context, state) {
                       return Form(
                         key: formKey,
+                        autovalidateMode: AutovalidateMode.onUserInteraction,
                         child: Center(
                           child: SizedBox(
                             width: 360,
@@ -149,14 +151,7 @@ class _LoginState extends State<Login> {
                                       child: TextFormField(
                                         controller: _emailController,
                                         obscureText: false,
-                                        validator: (value) {
-                                          if (value != null &&
-                                              value.isNotEmpty) {
-                                            return null;
-                                          } else {
-                                            return "Please enter an email";
-                                          }
-                                        },
+                                        validator: validateEmail,
                                         decoration: InputDecoration(
                                           contentPadding:
                                               const EdgeInsets.symmetric(
