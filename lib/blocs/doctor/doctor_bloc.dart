@@ -49,6 +49,7 @@ class DoctorBloc extends Bloc<DoctorEvent, DoctorState> {
             AdminUserAttributes(
               email: event.email,
               password: event.password,
+              emailConfirm: true,
               userMetadata: {
                 'status': 'active',
               },
@@ -73,7 +74,7 @@ class DoctorBloc extends Bloc<DoctorEvent, DoctorState> {
           }
         } else if (event is EditDoctorEvent) {
           AdminUserAttributes attributes =
-              AdminUserAttributes(email: event.email);
+              AdminUserAttributes(email: event.email, emailConfirm: true);
 
           if (event.password != null) {
             attributes.password = event.password;
