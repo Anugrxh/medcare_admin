@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:medcare_admin/util/value_validators.dart';
 
 import '../../blocs/department_bloc/department_bloc.dart';
 import '../custom_button.dart';
@@ -115,13 +116,7 @@ class _AddEditDepartmentDialogState extends State<AddEditDepartmentDialog> {
                 CustomCard(
                   child: TextFormField(
                     controller: _nameController,
-                    validator: (value) {
-                      if (value != null && value.trim().isNotEmpty) {
-                        return null;
-                      } else {
-                        return 'Please enter Department Name';
-                      }
-                    },
+                    validator: alphanumericWithSpaceValidator,
                     decoration: const InputDecoration(
                       hintText: 'eg. Cardiology',
                     ),

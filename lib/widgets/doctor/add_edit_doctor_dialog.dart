@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:medcare_admin/blocs/doctor/doctor_bloc.dart';
 import 'package:medcare_admin/util/postgres_time_to_time_of_day.dart';
+import 'package:medcare_admin/util/value_validators.dart';
 
 import '../custom_alert_dialog.dart';
 import '../custom_button.dart';
@@ -152,13 +153,7 @@ class _AddEditDoctorDialogState extends State<AddEditDoctorDialog> {
                           CustomCard(
                             child: TextFormField(
                               controller: _nameController,
-                              validator: (value) {
-                                if (value != null && value.trim().isNotEmpty) {
-                                  return null;
-                                } else {
-                                  return 'Enter name';
-                                }
-                              },
+                              validator: alphabeticWithSpaceValidator,
                               decoration: const InputDecoration(
                                 hintText: 'eg. Mr.John',
                               ),
@@ -179,13 +174,7 @@ class _AddEditDoctorDialogState extends State<AddEditDoctorDialog> {
                           CustomCard(
                             child: TextFormField(
                               controller: _emailController,
-                              validator: (value) {
-                                if (value != null && value.trim().isNotEmpty) {
-                                  return null;
-                                } else {
-                                  return 'Enter email';
-                                }
-                              },
+                              validator: emailValidator,
                               decoration: const InputDecoration(
                                 hintText: 'eg. john@medcare.com',
                               ),
@@ -207,15 +196,11 @@ class _AddEditDoctorDialogState extends State<AddEditDoctorDialog> {
                             child: TextFormField(
                               obscureText: _isObscure,
                               controller: _passwordController,
-                              validator: (value) {
-                                if ((value != null &&
-                                        value.trim().isNotEmpty) ||
-                                    widget.doctorDetails != null) {
-                                  return null;
-                                } else {
-                                  return 'Enter password';
-                                }
-                              },
+                              validator: widget.doctorDetails != null
+                                  ? (value) {
+                                      return null;
+                                    }
+                                  : passwordValidator,
                               decoration: InputDecoration(
                                 suffixIcon: IconButton(
                                   onPressed: () {
@@ -247,13 +232,7 @@ class _AddEditDoctorDialogState extends State<AddEditDoctorDialog> {
                           CustomCard(
                             child: TextFormField(
                               controller: _phoneNumberController,
-                              validator: (value) {
-                                if (value != null && value.trim().isNotEmpty) {
-                                  return null;
-                                } else {
-                                  return 'Enter phone';
-                                }
-                              },
+                              validator: phoneNumberValidator,
                               decoration: const InputDecoration(
                                 hintText: 'eg. 987654328',
                               ),
@@ -463,14 +442,7 @@ class _AddEditDoctorDialogState extends State<AddEditDoctorDialog> {
                                     CustomCard(
                                       child: TextFormField(
                                         controller: _feeController,
-                                        validator: (value) {
-                                          if (value != null &&
-                                              value.trim().isNotEmpty) {
-                                            return null;
-                                          } else {
-                                            return 'Enter fee';
-                                          }
-                                        },
+                                        validator: numericValidator,
                                         decoration: const InputDecoration(
                                           hintText: 'eg. 10000',
                                         ),

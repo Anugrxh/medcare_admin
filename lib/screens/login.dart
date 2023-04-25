@@ -151,7 +151,7 @@ class _LoginState extends State<Login> {
                                       child: TextFormField(
                                         controller: _emailController,
                                         obscureText: false,
-                                        validator: validateEmail,
+                                        validator: emailValidator,
                                         decoration: InputDecoration(
                                           contentPadding:
                                               const EdgeInsets.symmetric(

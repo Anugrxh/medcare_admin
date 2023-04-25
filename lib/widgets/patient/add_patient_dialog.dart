@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:medcare_admin/blocs/patients/manage_patients/manage_patients_bloc.dart';
+import 'package:medcare_admin/util/value_validators.dart';
 import 'package:medcare_admin/widgets/custom_alert_dialog.dart';
 import 'package:medcare_admin/widgets/custom_date_picker.dart';
 
@@ -124,13 +125,7 @@ class _AddEditPatientDialogState extends State<AddEditPatientDialog> {
                 CustomCard(
                   child: TextFormField(
                     controller: _nameController,
-                    validator: (value) {
-                      if (value != null && value.trim().isNotEmpty) {
-                        return null;
-                      } else {
-                        return 'Please enter Name';
-                      }
-                    },
+                    validator: alphanumericWithSpaceValidator,
                     decoration: const InputDecoration(
                       hintText: 'eg. Mr.John',
                     ),
@@ -148,13 +143,7 @@ class _AddEditPatientDialogState extends State<AddEditPatientDialog> {
                 CustomCard(
                   child: TextFormField(
                     controller: _phoneController,
-                    validator: (value) {
-                      if (value != null && value.trim().isNotEmpty) {
-                        return null;
-                      } else {
-                        return 'Please enter Phone Number';
-                      }
-                    },
+                    validator: phoneNumberValidator,
                     decoration: const InputDecoration(
                       hintText: 'eg. 9876543210',
                     ),
